@@ -22,6 +22,14 @@ class SbsNewsItemParser(NewsItemParser):
     def __get_item_url(article: ResultSet):
         return SbsNewsItemParser.__get_headline_elem(article).find('a')['href']
 
+    @staticmethod
+    def __get_topic_text(article: ResultSet):
+        topic = article.find(class_="topic__string")
+        if topic is not None:
+            return topic.getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         return soup.find_all('div', class_='preview')
@@ -32,7 +40,8 @@ class SbsNewsItemParser(NewsItemParser):
             news_items.append(
                 NewsItem(
                     url=SbsNewsItemParser.__get_item_url(article),
-                    title=SbsNewsItemParser.__get_headline_text(article)
+                    title=SbsNewsItemParser.__get_headline_text(article),
+                    topic=SbsNewsItemParser.__get_topic_text(article)
                 )
             )
         return news_items

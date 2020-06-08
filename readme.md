@@ -6,11 +6,29 @@ This program is designed to regularly scan the front page of news websites, and 
 changed, e.g. a new item was added or an existing item was updated. When a change is detected the program writes out a 
 message on the command line detailing exactly what changed.
 
-The news item components that are currently tracked are:
-  - website
+### Tracked News Item Attributes
+
+The news item attributes that are currently tracked are:
+  - time of scanning
+  - news website
   - headline title
   - headline url
-  - time of scanning
+  - topic (if available within article block)
+
+### Added News Items
+
+Each news item is considered unique based upon URL. 
+If a scanned news item has a URL that isn't recorded in the database then it is considered an added news item.
+
+### Updated News Items
+
+When a scanned news item has a URL that is already recorded in the database, then it is considered an existing news item.
+An existing news item is further considered as an updated news item if any of the following differ to the existing 
+database value:
+  - headline title
+  - topic
+
+#### Scanned News Websites
 
 News websites that are currently scanned are:
   - SBS news (all news items)

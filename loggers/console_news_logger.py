@@ -25,10 +25,15 @@ class ConsoleNewsLogger(NewsLogger):
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
         print("Title: {}".format(news_item.title))
+        if news_item.topic is not None:
+            print("Topic: {}".format(news_item.topic))
         print("===============")
 
+    @staticmethod
+    def __print_changed_value(attr_display_name, old_value, new_value):
+        print('{} changed from: "{}" to: "{}"'.format(attr_display_name, old_value, new_value))
+
     def log_news_item_updated(self, news_item: NewsItem, original_values: dict):
-        print('title changed from: "{}" to: "{}"'.format(original_values.get('title'), news_item.title))
         print("\n===============")
         print("Existing news item updated")
         print("---------------")
@@ -36,6 +41,11 @@ class ConsoleNewsLogger(NewsLogger):
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
         print("Title: {}".format(news_item.title))
+        if 'topic' in original_values:
+            print("Topic: {}".format(news_item.topic))
         print("---------------")
-        print('title changed from: "{}" to: "{}"'.format(original_values.get('title'), news_item.title))
+        if 'title' in original_values:
+            self.__print_changed_value('Title', original_values.get('title'), news_item.title)
+        if 'topic' in original_values:
+            self.__print_changed_value('Topic', original_values.get('topic'), news_item.topic)
         print("===============")

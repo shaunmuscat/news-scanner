@@ -30,6 +30,14 @@ class TheAustralianNewsItemParser(NewsItemParser):
         else:
             return headline.find('a')['href']
 
+    @staticmethod
+    def __get_topic_text(article: ResultSet):
+        topic = article.find(class_="story-block__kicker")
+        if topic is not None:
+            return topic.getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         return soup.find_all(class_="story-block")
@@ -40,7 +48,8 @@ class TheAustralianNewsItemParser(NewsItemParser):
             news_items.append(
                 NewsItem(
                     url=TheAustralianNewsItemParser.__get_item_url(article),
-                    title=TheAustralianNewsItemParser.__get_headline_text(article)
+                    title=TheAustralianNewsItemParser.__get_headline_text(article),
+                    topic=TheAustralianNewsItemParser.__get_topic_text(article)
                 )
             )
         return news_items

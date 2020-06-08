@@ -59,13 +59,22 @@ def news_scan_job():
                 session.add(scanned_news_item)
                 session.commit()
             else:
+                item_changed = False
+                original_properties = {}
                 if existing_item.title != scanned_news_item.title:
-                    original_title = existing_item.title
+                    item_changed = True
+                    original_properties['title'] = existing_item.title
                     existing_item.title = scanned_news_item.title
+                if existing_item.topic != scanned_news_item.topic:
+                    item_changed = True
+                    original_properties['topic'] = existing_item.topic
+                    existing_item.topic = scanned_news_item.topic
+
+                if item_changed:
                     existing_item.updated_at = datetime.now()
-                    logger.log_news_item_updated(existing_item, {'title': original_title})
                     session.add(existing_item)
                     session.commit()
+                    logger.log_news_item_updated(existing_item, original_properties)
 
     session.close()
     logger.log_news_scan_ending(datetime.now())
