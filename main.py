@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     # Run initial news scan and then schedule the news scan to run at a regular basis thereafter
     news_scan_job()
-    schedule.every(1).minute.do(news_scan_job)
+    schedule.every(5).minutes.do(news_scan_job)
 
     while True:
         schedule.run_pending()
