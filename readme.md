@@ -52,5 +52,5 @@ Tasks for future development include:
   - Add news item file logger as alternate to console logging.
   - Move some configuration into YAML files such as scheduled run frequency.
   - Determine other condition for news item uniqueness than Url, as a front page can contain multiple news items with 
-  the same url.
+  the same url, resulting in the news item being updated multiple times in a single scan.
   - Update parsed news item URL to be fully qualified if it doesn't include the website base url upon parsing. 
