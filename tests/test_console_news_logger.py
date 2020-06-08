@@ -75,6 +75,22 @@ class TestConsoleNewsLogging(unittest.TestCase):
         self.assertEqual(expected, mock_stdout.getvalue())
 
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def test_log_news_item_added_with_content(self, mock_stdout):
+        news_website = NewsWebsite('ABC News', "www.abc.com", "www.abc.com/news")
+        news_item = NewsItem("www.abc.com/news/a-story", "A Story", "This is a story summary.", None, None, news_website)
+        ConsoleNewsLogger().log_news_item_added(news_item)
+        expected = "\n===============\n"
+        expected += "News item added\n"
+        expected += "---------------\n"
+        expected += "Time: {}\n".format(news_item.created_at)
+        expected += "Website: ABC News\n"
+        expected += "URL: www.abc.com/news/a-story\n"
+        expected += "Title: A Story\n"
+        expected += "Content: This is a story summary.\n"
+        expected += "===============\n"
+        self.assertEqual(expected, mock_stdout.getvalue())
+
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
     def test_log_news_item_updated_with_title(self, mock_stdout):
         news_website = NewsWebsite('ABC News', "www.abc.com", "www.abc.com/news")
         news_item = NewsItem("www.abc.com/news/a-story", "An Updated Story", None, None, None, news_website)
@@ -124,6 +140,24 @@ class TestConsoleNewsLogging(unittest.TestCase):
         expected += "Author: John Smith\n"
         expected += "---------------\n"
         expected += 'Author changed from: "None" to: "John Smith"\n'
+        expected += "===============\n"
+        self.assertEqual(expected, mock_stdout.getvalue())
+
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def test_log_news_item_updated_with_content(self, mock_stdout):
+        news_website = NewsWebsite('ABC News', "www.abc.com", "www.abc.com/news")
+        news_item = NewsItem("www.abc.com/news/a-story", "A Story", "This is a story summary.", None, None, news_website)
+        ConsoleNewsLogger().log_news_item_updated(news_item, {'content': None})
+        expected = "\n===============\n"
+        expected += "Existing news item updated\n"
+        expected += "---------------\n"
+        expected += "Time: {}\n".format(news_item.updated_at)
+        expected += "Website: ABC News\n"
+        expected += "URL: www.abc.com/news/a-story\n"
+        expected += "Title: A Story\n"
+        expected += "Content: This is a story summary.\n"
+        expected += "---------------\n"
+        expected += 'Content changed from: "None" to: "This is a story summary."\n'
         expected += "===============\n"
         self.assertEqual(expected, mock_stdout.getvalue())
 

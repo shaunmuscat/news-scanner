@@ -25,6 +25,8 @@ class ConsoleNewsLogger(NewsLogger):
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
         print("Title: {}".format(news_item.title))
+        if news_item.content is not None:
+            print("Content: {}".format(news_item.content))
         if news_item.author is not None:
             print("Author: {}".format(news_item.author))
         if news_item.topic is not None:
@@ -43,6 +45,8 @@ class ConsoleNewsLogger(NewsLogger):
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
         print("Title: {}".format(news_item.title))
+        if 'content' in original_values:
+            print("Content: {}".format(news_item.content))
         if 'author' in original_values:
             print("Author: {}".format(news_item.author))
         if 'topic' in original_values:
@@ -50,6 +54,8 @@ class ConsoleNewsLogger(NewsLogger):
         print("---------------")
         if 'title' in original_values:
             self.__print_changed_value('Title', original_values.get('title'), news_item.title)
+        if 'content' in original_values:
+            self.__print_changed_value('Content', original_values.get('Content'), news_item.content)
         if 'author' in original_values:
             self.__print_changed_value('Author', original_values.get('Author'), news_item.author)
         if 'topic' in original_values:

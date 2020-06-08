@@ -48,6 +48,18 @@ class TheAustralianNewsItemParser(NewsItemParser):
         else:
             return None
 
+    @staticmethod
+    def __get_item_content(article: ResultSet):
+        content = article.find('p', class_="story-block__standfirst", recursive=True)
+        if content is None:
+            content = article.find('p', class_="standfirst-content", recursive=True)
+        if content is None:
+            content = article.find('p', class_=None)
+        if content is not None:
+            return content.getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         return soup.find_all(class_="story-block")
@@ -59,6 +71,7 @@ class TheAustralianNewsItemParser(NewsItemParser):
                 NewsItem(
                     url=TheAustralianNewsItemParser.__get_item_url(article),
                     title=TheAustralianNewsItemParser.__get_headline_text(article),
+                    content=TheAustralianNewsItemParser.__get_item_content(article),
                     author=TheAustralianNewsItemParser.__get_item_author(article),
                     topic=TheAustralianNewsItemParser.__get_topic_text(article)
                 )

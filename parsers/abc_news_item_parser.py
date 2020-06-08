@@ -39,6 +39,16 @@ class AbcNewsItemParser(NewsItemParser):
         else:
             return None
 
+    @staticmethod
+    def __get_item_content(article: ResultSet):
+        content = article.find('div', class_="text-container")
+        if content is None:
+            content = article.find('p', class_=None, recursive=True)
+        if content is not None:
+            return content.getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         # ToDo: also find separate video articles that have class 'doctype-video'
@@ -51,6 +61,7 @@ class AbcNewsItemParser(NewsItemParser):
                 NewsItem(
                     url=AbcNewsItemParser.__get_item_url(article),
                     title=AbcNewsItemParser.__get_headline_text(article),
+                    content=AbcNewsItemParser.__get_item_content(article),
                     author=AbcNewsItemParser.__get_item_author(article)
                 )
             )
