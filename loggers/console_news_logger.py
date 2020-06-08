@@ -23,7 +23,7 @@ class ConsoleNewsLogger(NewsLogger):
         print("Time: {}".format(news_item.created_at))
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
-        print("Content: {}".format(news_item.title))
+        print("Title: {}".format(news_item.title))
         print("--------------")
 
     def log_news_item_updated(self, news_item: NewsItem, original_values: dict):
@@ -34,5 +34,5 @@ class ConsoleNewsLogger(NewsLogger):
         print("Time: {}".format(news_item.updated_at))
         print("Website: {}".format(news_item.news_website.name))
         print("URL: {}".format(news_item.url))
-        print("Content: {}".format(news_item.title))
+        print("Title: {}".format(news_item.title))
         print("--------------")
