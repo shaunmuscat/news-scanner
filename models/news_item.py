@@ -9,7 +9,8 @@ class NewsItem(Base):
 
     __tablename__ = "news_items"
     id = Column(Integer, primary_key=True)
-    url = Column(String, unique=True)
+    # The URL of a news item must be unique as it's the base of determining if a news item is updated/changed
+    url = Column(String, unique=True, nullable=False)
     title = Column(String)
     content = Column(Text)
     author = Column(String)
