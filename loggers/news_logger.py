@@ -23,9 +23,6 @@ class NewsLogger(ABC):
        :param timestamp: datetime timestamp that the scan is ending at
        :return:
        """
-        print("<<<<<<<<<<>>>>>>>>>>")
-        print("Ending news scan at: {}".format(timestamp))
-        print("<<<<<<<<<<>>>>>>>>>>")
 
     @abstractmethod
     def log_news_item_added(self, news_item: NewsItem):
