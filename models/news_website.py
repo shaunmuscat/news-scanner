@@ -6,7 +6,7 @@ from models.db_base import Base
 
 class NewsWebsite(Base):
 
-    __tablename__ = "news_website"
+    __tablename__ = "news_websites"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     base_url = Column(String)

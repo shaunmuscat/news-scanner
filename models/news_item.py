@@ -16,7 +16,7 @@ class NewsItem(Base):
     topic = Column(String)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
-    news_website_id = Column(Integer, ForeignKey("news_website.id"))
+    news_website_id = Column(Integer, ForeignKey("news_websites.id"))
     news_website = relationship("NewsWebsite", back_populates="news_items")
 
     def __init__(self, url: str, title: str, content: str = None, author: str = None, topic: str = None,
