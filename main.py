@@ -10,6 +10,13 @@ from news_scanner import NewsScanner
 
 
 def get_first_or_create_news_website(name: str, base_url: str, front_page_url: str) -> NewsWebsite:
+    """Gets the first matching instance of a NewsWebsite from the db or creates one if none exist
+
+    :param name: new website name
+    :param base_url: base URL of new website
+    :param front_page_url: URL of news website front page
+    :return:
+    """
     session = Session(expire_on_commit=False)
     website = session.query(NewsWebsite).filter_by(name=name, base_url=base_url, front_page_url=front_page_url).first()
     if website is None:
@@ -21,6 +28,10 @@ def get_first_or_create_news_website(name: str, base_url: str, front_page_url: s
 
 
 def news_scan_job():
+    """Scans each of the configured websites for news items, logs added or updated items and persists them to the db
+
+    :return:
+    """
     sbs_web = get_first_or_create_news_website("SBS News", "https://www.sbs.com.au", "https://www.sbs.com.au/news/")
     abc_web = get_first_or_create_news_website("ABC News", "https://www.abc.net.au", "https://www.abc.net.au/news/")
     nine_web = get_first_or_create_news_website("Nine News", "https://www.9news.com.au/", "https://www.9news.com.au/")
