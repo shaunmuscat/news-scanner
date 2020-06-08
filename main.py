@@ -65,6 +65,12 @@ def news_scan_job():
                     item_changed = True
                     original_properties['title'] = existing_item.title
                     existing_item.title = scanned_news_item.title
+
+                if existing_item.author != scanned_news_item.author:
+                    item_changed = True
+                    original_properties['author'] = existing_item.author
+                    existing_item.author = scanned_news_item.author
+
                 if existing_item.topic != scanned_news_item.topic:
                     item_changed = True
                     original_properties['topic'] = existing_item.topic

@@ -13,6 +13,7 @@ The news item attributes that are currently tracked are:
   - news website
   - headline title
   - headline url
+  - author (if available within article block)
   - topic (if available within article block)
 
 ### Added News Items
@@ -26,6 +27,7 @@ When a scanned news item has a URL that is already recorded in the database, the
 An existing news item is further considered as an updated news item if any of the following differ to the existing 
 database value:
   - headline title
+  - author
   - topic
 
 #### Scanned News Websites
@@ -43,8 +45,7 @@ For setup and run instructions refer to the document [getting started](./docs/ge
 
 ## Future Development
 Tasks for future development include:
-  - Update news parser implementations to get uncommon new item components including author, topic and 
-  summary content.
+  - Update news parser implementations to get uncommon new item components including summary content.
   - Add news item file logger as alternate to console logging.
   - Move some configuration into YAML files such as scheduled run frequency.
   - Determine other condition for news item uniqueness than Url, as a front page can contain multiple news items with 

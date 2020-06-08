@@ -38,6 +38,16 @@ class TheAustralianNewsItemParser(NewsItemParser):
         else:
             return None
 
+    @staticmethod
+    def __get_item_author(article: ResultSet):
+        author = article.find(class_="author-block__info", recursive=True)
+        if author is None:
+            author = article.find(class_="story-block__byline", recursive=True)
+        if author is not None:
+            return author.getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         return soup.find_all(class_="story-block")
@@ -49,6 +59,7 @@ class TheAustralianNewsItemParser(NewsItemParser):
                 NewsItem(
                     url=TheAustralianNewsItemParser.__get_item_url(article),
                     title=TheAustralianNewsItemParser.__get_headline_text(article),
+                    author=TheAustralianNewsItemParser.__get_item_author(article),
                     topic=TheAustralianNewsItemParser.__get_topic_text(article)
                 )
             )

@@ -18,6 +18,14 @@ class TestAbcNewsItemParser(TestNewsItemParser):
         self.assertEqual('/news/abcmyphoto/2020-06-05/your-best-photos-for-the-week-ending-june-5-2020/12322252',
                          news_items[-1].url)
 
+        # Test item with author, iterate through news items until known news item with author is found
+        expected_url = "/news/2020-06-07/wa-liberals-under-liza-harvey-losing-hope-of-winning-election/12299608"
+        expected_title = "WA Liberals fear election loss"
+        item = next((x for x in news_items if x.url == expected_url and x.title == expected_title), None)
+        self.assertEqual(expected_title, item.title)
+        self.assertEqual(expected_url, item.url)
+        self.assertEqual("Jacob Kagi", item.author)
+
 
 if __name__ == '__main__':
     unittest.main()

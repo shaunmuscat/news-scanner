@@ -13,6 +13,7 @@ class TestTheAustralianNewsItemParser(TestNewsItemParser):
                          news_items[0].url)
         self.assertEqual("First new case in ACT in more than a month", news_items[0].title)
         self.assertEqual(None, news_items[0].topic)
+        self.assertEqual("Lachlan Moffett-Gray", news_items[0].author)
 
         # Test last news item
         self.assertEqual("Fines for Vic leaders in nation’s protests",
@@ -20,6 +21,7 @@ class TestTheAustralianNewsItemParser(TestNewsItemParser):
         self.assertEqual("https://www.theaustralian.com.au/nation/coronavirus-australia-live-news-surprise-good-news-in-house-price-forecasts/news-story/e6f968a7397e7bee641c7ec37aff90e7",
                          news_items[-1].url)
         self.assertEqual("LIVE: CORONAVIRUS CRISIS", news_items[-1].topic)
+        self.assertEqual("Angelica Snowden, Kieran Gair, Tessa Akerman", news_items[-1].author)
 
 
 if __name__ == '__main__':

@@ -31,6 +31,14 @@ class AbcNewsItemParser(NewsItemParser):
         else:
             return headline_elem.find('a')['href']
 
+    @staticmethod
+    def __get_item_author(article: ResultSet):
+        byline = article.find(class_='byline')
+        if byline is not None:
+            return byline.find('a').getText().strip()
+        else:
+            return None
+
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         # ToDo: also find separate video articles that have class 'doctype-video'
@@ -42,7 +50,8 @@ class AbcNewsItemParser(NewsItemParser):
             news_items.append(
                 NewsItem(
                     url=AbcNewsItemParser.__get_item_url(article),
-                    title=AbcNewsItemParser.__get_headline_text(article)
+                    title=AbcNewsItemParser.__get_headline_text(article),
+                    author=AbcNewsItemParser.__get_item_author(article)
                 )
             )
         return news_items
