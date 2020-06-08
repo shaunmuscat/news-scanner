@@ -52,7 +52,7 @@ class AbcNewsItemParser(NewsItemParser):
     def __get_page_articles(self, html):
         soup = super()._get_page_soup(html)
         # ToDo: also find separate video articles that have class 'doctype-video'
-        return soup.find_all(class_='doctype-article')
+        return soup.find_all(class_=['doctype-article', 'doctype-video'])
 
     def get_news_items(self, html) -> [NewsItem]:
         news_items = []

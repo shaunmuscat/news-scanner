@@ -40,8 +40,7 @@ News websites that are currently scanned are:
   - SBS news (all news items)
   - The Australian (all news items)
   - 9 news (most news items, currently not included are 'takeover' featured article and "You may also like" / recommended news)
-  - ABC news (most news items, currently not included are "State & Territory News", "Local News", "News video", 
-  "My Topics", and "Best of ABC.NET.AU")
+  - ABC news (most news items, currently not included are "State & Territory News", "Local News", "My Topics", and "Best of ABC.NET.AU")
 
 ## Getting Started
 
