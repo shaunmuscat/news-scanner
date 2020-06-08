@@ -9,7 +9,8 @@
 
 ## Setup
 
-1. Create a python virtual environment for the project named `env`
+1. Ensure all Required Dependencies are installed
+2. Create a python virtual environment for the project named `env`
    - On macOS and Linux:
         ```
         python3 -m venv env
@@ -18,7 +19,7 @@
         ```
         py -m venv env
         ```
-2. Activate the virtual environment
+3. Activate the virtual environment
    - On macOS and Linux:
         ```
         source env/bin/activate
@@ -27,11 +28,11 @@
         ```
         .\env\Scripts\activate
         ```
-3. Install python packages
+4. Install python packages
     ```
     pip3 install -r requirements.txt
     ```
-4. Start up instance of the database using docker
+5. Start up instance of the database using docker
     ```
     docker run --name news_scanner-orm-psql -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=usr -e POSTGRES_DB=news_scanner -p 5432:5432 -d postgres
     ```
