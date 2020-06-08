@@ -55,9 +55,9 @@ class ConsoleNewsLogger(NewsLogger):
         if 'title' in original_values:
             self.__print_changed_value('Title', original_values.get('title'), news_item.title)
         if 'content' in original_values:
-            self.__print_changed_value('Content', original_values.get('Content'), news_item.content)
+            self.__print_changed_value('Content', original_values.get('content'), news_item.content)
         if 'author' in original_values:
-            self.__print_changed_value('Author', original_values.get('Author'), news_item.author)
+            self.__print_changed_value('Author', original_values.get('author'), news_item.author)
         if 'topic' in original_values:
             self.__print_changed_value('Topic', original_values.get('topic'), news_item.topic)
         print("===============")
