@@ -43,3 +43,21 @@
         # destroy instance
         docker rm news_scanner-orm-psql
         ```
+
+## Running Tests
+
+To run all unit tests within the tests directory, ensure setup is completed and execute the command:
+```
+python -m unittest
+```
+
+## Running the Application
+
+To run the application, ensure setup is completed and the docker postgres instance is running, then execute the command:
+```
+python main.py
+```
+
+Notifications will be written to console when a scan occurs and added or updated news articles are discovered.
+
+To exit the running application use the keyboard interrupt with `CTRL + C`.

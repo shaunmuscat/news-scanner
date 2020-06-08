@@ -19,16 +19,15 @@ News websites that are currently scanned are:
   - ABC news (most news items, not "State & Territory News", nor "Local News", nor "News video", 
   nor "My Topics", nor "Best of ABC.NET.AU")
 
-## Setup
+## Getting Started
 
-For setup instructions refer to the document [getting started](./docs/getting_started.md)
+For setup and run instructions refer to the document [getting started](./docs/getting_started.md)
 
-## ToDo
+## Future Development
 Future development would next focus on:
-  - Adding and generating Pep8 compliant Pydoc where relevant
   - Implementing a more detailed news parser interface to get uncommon new item components including author, topic and 
   summary content
   - Implementing more specialised news parser interface implementations for each target news website to capture all 
   news items
-  - Adding alternate notification writers, such as to file instead of console output
+  - Adding news item file logger as alternate to console logging
   - Moving some configuration into YAML files such as scheduled run frequency
