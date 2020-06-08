@@ -1,12 +1,13 @@
 import requests
-import datetime
 import schedule
 import time
 
 from news_item_parser import NewsItemParser
+from datetime import datetime
 from models.db_base import Session, engine, Base
 from models.news_item import NewsItem
 from models.news_website import NewsWebsite
+from loggers.console_news_logger import ConsoleNewsLogger
 
 
 class NewsScanner:
@@ -23,7 +24,7 @@ class NewsScanner:
         scanned_items = []
         for item in items:
             scanned_items.append({
-                'time': datetime.datetime.now(),
+                'time': datetime.now(),
                 'website name': self.news_website.name,
                 'url': self.news_item_parser.get_item_url(item),
                 'title': self.news_item_parser.get_item_title(item)
@@ -61,62 +62,31 @@ def news_scan_job():
     }
 
     session = Session()
-    print("<<<<<<<<<<>>>>>>>>>>")
-    print("Starting news scan job at: {}".format(datetime.datetime.now()))
+    logger = ConsoleNewsLogger()
+    logger.log_news_scan_starting(datetime.now())
 
     for k, scanner in news_scanners.items():
-        added = 0
-        updated = 0
-
-        print("================")
-        print("Scanning: {}".format(scanner.news_website.name))
-        print("================")
-
         for scanner_item in scanner.get_news_items():
             # ToDo: consider whether url is fully qualified
             existing_item = session.query(NewsItem).filter(NewsItem.url == scanner_item.get('url'),
                                                            NewsItem.news_website == scanner.news_website).first()
             if existing_item is None:
-                print("--------------")
-                print("New item added")
                 # ToDo: add check to add base to url if not fully qualified
                 news_item = NewsItem(scanner_item.get('url'), scanner_item.get('title'), None, None, None,
                                      scanner.news_website)
-                print("Time: {}".format(news_item.created_at))
-                print("Website: {}".format(news_item.news_website.name))
-                print("URL: {}".format(news_item.url))
-                print("Content: {}".format(news_item.title))
-                print("--------------")
+                logger.log_news_item_added(news_item)
                 session.add(news_item)
                 session.commit()
-                added += 1
             else:
                 if existing_item.title != scanner_item.get('title'):
-                    print("--------------")
-                    print('title changed from: "{}" to: "{}"'.format(existing_item.title, scanner_item.get('title')))
-                    print("--------------")
-                    print("Existing item updated")
-                    existing_item.updated_at = datetime.datetime.now()
-                    print("Time: {}".format(existing_item.updated_at))
-                    print("Website: {}".format(existing_item.news_website.name))
-                    print("URL: {}".format(existing_item.url))
                     existing_item.title = scanner_item.get('title')
-                    print("Content: {}".format(existing_item.title))
-                    print("--------------")
+                    existing_item.updated_at = datetime.now()
+                    logger.log_news_item_updated(existing_item, {'title': scanner_item.get('title')})
                     session.add(existing_item)
                     session.commit()
-                    updated += 1
-
-        print("================")
-        print(scanner.news_website.name)
-        print('New items added: {}'.format(added))
-        print('Existing items updated: {}'.format(updated))
-        print("================")
 
     session.close()
-
-    print("Ending news scan job at: {}".format(datetime.datetime.now()))
-    print("<<<<<<<<<<>>>>>>>>>>")
+    logger.log_news_scan_ending(datetime.now())
 
 
 if __name__ == "__main__":
