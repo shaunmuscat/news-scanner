@@ -61,22 +61,22 @@ def news_scan_job():
             else:
                 item_changed = False
                 original_properties = {}
-                if existing_item.title != scanned_news_item.title:
+                if existing_item.title != scanned_news_item.title and scanned_news_item.title is not None:
                     item_changed = True
                     original_properties['title'] = existing_item.title
                     existing_item.title = scanned_news_item.title
 
-                if existing_item.content != scanned_news_item.content:
+                if existing_item.content != scanned_news_item.content and scanned_news_item.content is not None:
                     item_changed = True
                     original_properties['content'] = existing_item.content
                     existing_item.content = scanned_news_item.content
 
-                if existing_item.author != scanned_news_item.author:
+                if existing_item.author != scanned_news_item.author and scanned_news_item.author is not None:
                     item_changed = True
                     original_properties['author'] = existing_item.author
                     existing_item.author = scanned_news_item.author
 
-                if existing_item.topic != scanned_news_item.topic:
+                if existing_item.topic != scanned_news_item.topic and scanned_news_item.topic is not None:
                     item_changed = True
                     original_properties['topic'] = existing_item.topic
                     existing_item.topic = scanned_news_item.topic
