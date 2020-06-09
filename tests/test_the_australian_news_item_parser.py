@@ -1,12 +1,12 @@
 import unittest
-from tests.test_news_item_parser import TestNewsItemParser
+from tests.helpers import get_test_data_file_contents
 from parsers.the_australian_news_item_parser import TheAustralianNewsItemParser
 
 
-class TestTheAustralianNewsItemParser(TestNewsItemParser):
+class TestTheAustralianNewsItemParser(unittest.TestCase):
     def test_get_news_items(self):
         parser = TheAustralianNewsItemParser()
-        news_items = parser.get_news_items(self.get_page_html("the_australian.html"))
+        news_items = parser.get_news_items(get_test_data_file_contents("the_australian.html"))
 
         # Test first news item
         self.assertEqual("https://www.theaustralian.com.au/nation/coronavirus-australia-live-news-health-officials-fear-second-covid19-spike-after-black-lives-matter-protests/news-story/6ee48b5a626d2391217e59c9ada2c632?keyevent=1.05pm",

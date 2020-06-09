@@ -1,12 +1,12 @@
 import unittest
-from tests.test_news_item_parser import TestNewsItemParser
+from tests.helpers import get_test_data_file_contents
 from parsers.sbs_news_item_parser import SbsNewsItemParser
 
 
-class TestSbsNewsItemParser(TestNewsItemParser):
+class TestSbsNewsItemParser(unittest.TestCase):
     def test_get_news_items(self):
         parser = SbsNewsItemParser()
-        news_items = parser.get_news_items(self.get_page_html("sbs_news.html"))
+        news_items = parser.get_news_items(get_test_data_file_contents("sbs_news.html"))
         self.assertEqual(len(news_items), 53)
 
         # Test first news item

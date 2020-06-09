@@ -1,12 +1,12 @@
 import unittest
-from tests.test_news_item_parser import TestNewsItemParser
+from tests.helpers import get_test_data_file_contents
 from parsers.abc_news_item_parser import AbcNewsItemParser
 
 
-class TestAbcNewsItemParser(TestNewsItemParser):
+class TestAbcNewsItemParser(unittest.TestCase):
     def test_get_news_items(self):
         parser = AbcNewsItemParser()
-        news_items = parser.get_news_items(self.get_page_html("abc_news.html"))
+        news_items = parser.get_news_items(get_test_data_file_contents("abc_news.html"))
 
         # Test first news item
         self.assertEqual("/news/2020-06-07/cormann-dubs-black-lives-matter-protesters-selfish-coronavirus/12330196",

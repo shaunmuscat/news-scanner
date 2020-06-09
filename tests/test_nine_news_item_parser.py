@@ -1,12 +1,12 @@
 import unittest
-from tests.test_news_item_parser import TestNewsItemParser
+from tests.helpers import get_test_data_file_contents
 from parsers.nine_news_item_parser import NineNewsItemParser
 
 
-class TestNineNewsItemParser(TestNewsItemParser):
+class TestNineNewsItemParser(unittest.TestCase):
     def test_get_news_items(self):
         parser = NineNewsItemParser()
-        news_items = parser.get_news_items(self.get_page_html("nine_news.html"))
+        news_items = parser.get_news_items(get_test_data_file_contents("nine_news.html"))
 
         # Test first news item
         self.assertEqual("https://www.9news.com.au/national/tyaak-house-fire-eleven-hospitalised-two-unaccounted-for/60155f9d-948f-4cc0-a361-14f01bdae415",
